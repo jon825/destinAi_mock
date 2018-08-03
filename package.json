@@ -1,0 +1,25 @@
+{
+  "name": "destin_mock",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.18.0",
+    "chart.js": "^2.7.2",
+    "d3-scale": "^2.1.0",
+    "mdbreact": "^4.6.1",
+    "node-where": "^1.1.0",
+    "react": "^16.4.1",
+    "react-chartjs-2": "^2.7.4",
+    "react-dom": "^16.4.1",
+    "react-simple-maps": "^0.12.1"
+  },
+  "devDependencies": {
+    "react-scripts": "1.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
