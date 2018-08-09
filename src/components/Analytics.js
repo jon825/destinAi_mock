@@ -11,18 +11,18 @@ import {
 import Table from "./Table";
 import { scaleLinear } from "d3-scale";
 import geography from "../world-110m.json";
-import where from "node-where";
+// import where from "node-where";
 import "../App.css";
 
 class Analytics extends Component {
   constructor() {
     super();
     this.state = {
-      clientCount: []
+      barGraphData: []
     };
 
-    this.getIs = this.getIs.bind(this);
-    this.createPromiseList = this.createPromiseList.bind(this);
+    // this.getIs = this.getIs.bind(this);
+    // this.createPromiseList = this.createPromiseList.bind(this);
   }
 
   componentDidMount() {
@@ -49,41 +49,47 @@ class Analytics extends Component {
         count: count[i]
       });
     }
-    const list = this.createPromiseList(citizen);
+    this.setState({
+      barGraphData:citizen
+    })
+    // const list = this.createPromiseList(citizen);
 
     //**** Promise is created to get the coordinates of every countries the clients are from "node-where" module
     //**** then setState with coordinates into data for Bubble Map Use
 
-    Promise.all(list).then(location => {
-      for (let i = 0; i < location.length; i++) {
-        citizen[i].coordinates = [
-          location[i].attributes.lng,
-          location[i].attributes.lat
-        ];
-      }
-      this.setState({
-        clientCount: citizen
-      });
-    });
-  }
-
-  getIs(str) {
-    return new Promise((resolve, reject) => {
-      where.is(str, (err, result) => {
-        if (err) {
-          return reject(err);
-        }
-        resolve(result);
-      });
-    });
-  }
 
 
-  createPromiseList(arrayOfPeople) {
-    return arrayOfPeople.map(person => {
-      return this.getIs(person.country);
-    });
+    // Promise.all(list).then(location => {
+    //   for (let i = 0; i < location.length; i++) {
+    //     citizen[i].coordinates = [
+    //       location[i].attributes.lng,
+    //       location[i].attributes.lat
+    //     ];
+    //   }
+      // this.setState({
+      //   barGraphData: citizen
+      // });
+    // });
   }
+
+  // getIs(str) {
+  //   return new Promise((resolve, reject) => {
+  //     where.is(str, (err, result) => {
+  //       if (err) {
+  //         return reject(err);
+  //       }
+  //       resolve(result);
+  //     });
+  //   });
+  // }
+
+
+  // createPromiseList(arrayOfPeople) {
+  //   return arrayOfPeople.map(person => {
+  //     console.log(person);
+  //     return this.getIs(person.country);
+  //   });
+  // }
 
 
 
@@ -91,7 +97,7 @@ class Analytics extends Component {
     let barChartData;
     let label;
     let data;
-    let clients = this.state.clientCount;
+    let clients = this.state.barGraphData;
 
     //***** list of clients are stored alphabetically based on their citizenship from A~Z
 
@@ -112,8 +118,8 @@ class Analytics extends Component {
       return x.count;
     });
 
-    //*****cityScale is used for the bubbles based on number of clients from different countries
 
+    //*****cityScale is used for the bubbles based on number of clients from different countries
 
 
     const cityScale = scaleLinear()
@@ -166,6 +172,7 @@ class Analytics extends Component {
 
 
         </div>
+        {/*
         <div className="row">
           <ComposableMap
             projectionConfig={{ scale: 205 }}
@@ -228,6 +235,9 @@ class Analytics extends Component {
             </ZoomableGroup>
           </ComposableMap>
         </div>
+
+              */}
+
         <div className="row">
 
         {/*****
@@ -235,7 +245,6 @@ class Analytics extends Component {
         *****/}
 
           <Table clients={this.props.clients} />
-        }
         </div>
       </div>
     );

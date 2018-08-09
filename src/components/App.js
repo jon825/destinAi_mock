@@ -35,7 +35,7 @@ class App extends Component {
   }
 
   fetchAPI(){
-    request.get("Some Random API")
+    request.get("https://randomapi.com/api/aa95c1c5886c4b3a0c92c08669170298")
       .then(res=>{
         this.setState({
           clientsArray:res.data.results[0].clients
